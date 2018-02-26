@@ -1,0 +1,108 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: false
+    fetch-registry: false
+server:
+  port: 8788
+  context-path : /api
+  session:
+      timeout: 86400
+  #servlet-path: "*.html"
+
+spring:
+  application:
+      name: graduation
+  #REDIS
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    joda-date-time-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: "GMT+8"
+#  activemq:
+#    in-memory: true
+#    pooled: false
+#    broker-url: "tcp://localhost:61616"
+#    user: "admin"
+#    password: "admin"
+  datasource:
+    name: test
+    url: jdbc:mysql://localhost:3306/mydb?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 111111
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+  application.name: config-client
+  cloud.config.label: master
+  cloud.config.profile: dev
+  cloud.config.uri: http://localhost:8888/
+
+jms:
+    pub-sub-domain: true
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+
+mybatis:
+  enabled: true
+  typeAliasesPackage: "com.demo.graduationuser.*.entity"
+  mapperLocations: "mapper/*Mapper.xml"
+  enabledCache: true
+  order: "BEFORE"
+
+#security:
+##  client:
+##      client-id: shopapp
+##      client-secret: dXNlci1hcHA=
+##      user-authorization-uri: "http://auth-server:9999/oauth/authorize"
+##      access-token-uri: "http://auth-server:9999/oauth/token"
+#  basic:
+#    enabled: false
+#  enabled: true
+#  ignored:
+#      - "/user/*"
+
+
+global:
+  cache:
+    expire: 86400
+    database: 15
+    host: localhost
+    port: 6379
+    maxActive: 300
+    maxIdle: 100
+    maxWait: 1000
+
+flyway.baselineOnMigrate: true
+#logging.level.org.springframework: WARN
+#logging.level.org.spring.springboot.dao: DEBUG
+#logging.file: logs/spring-boot-logging.log
+
+#c3p0
+#jdbc.maxPoolSize: 50
+#jdbc.minPoolSize: 10
+#jdbc.maxStatements: 100
+#jdbc.testConnection: true
+
+# 通用Mapper配置
+#mapper.plugin: tk.mybatis.mapper.generator.MapperPlugin
+#mapper.Mapper: tk.mybatis.mapper.common.Mapper
