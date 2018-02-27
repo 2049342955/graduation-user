@@ -3,10 +3,9 @@
  */
 package com.demo.graduationuser;
 
-//import com.demo.common.Constant;
 import com.demo.common.Constant;
-import com.pudding.core.message.CacheMessageSource;
-import com.pudding.core.web.BaseWebMvcConfig;
+import com.demo.core.message.CacheMessageSource;
+import com.demo.core.web.BaseWebMvcConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;

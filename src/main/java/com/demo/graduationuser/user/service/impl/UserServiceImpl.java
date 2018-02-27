@@ -1,7 +1,8 @@
 package com.demo.graduationuser.user.service.impl;
 
+import com.demo.domain.usr.User;
 import com.demo.graduationuser.common.BaseDomain;
-import com.demo.graduationuser.user.entity.User;
+//import com.demo.graduationuser.user.entity.User;
 import com.demo.graduationuser.user.mapper.UserMapper;
 import com.demo.graduationuser.user.service.IUserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -9,6 +10,7 @@ import com.github.pagehelper.ISelect;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -28,6 +30,9 @@ import java.util.List;
 public class UserServiceImpl implements IUserService{
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private CacheManager cacheManager;
 
     @Override
     public User get(String id) {
@@ -49,17 +54,19 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public PageInfo<User> page(User user) {
-        if (User.getPageNum() == null)
-            User.setPageNum(BaseDomain.DEFALUT_PAGE_NUM);
-        if (User.getPageSize() == null)
-            User.setPageSize(BaseDomain.DEFALUT_PAGE_SIZE);
-        return PageHelper.startPage(User.getPageNum(), User.getPageSize()).setOrderBy(user.getOrderBy()).doSelectPageInfo(new ISelect() {
+    public PageInfo<User> query(User user) {
+        if (user.getPageNum() == null)
+            user.setPageNum(BaseDomain.DEFALUT_PAGE_NUM);
+        if (user.getPageSize() == null)
+            user.setPageSize(BaseDomain.DEFALUT_PAGE_SIZE);
+        PageInfo<User> query = new PageInfo<>();
+        query =PageHelper.startPage(user.getPageNum(), user.getPageSize()).setOrderBy(user.getOrderBy()).doSelectPageInfo(new ISelect() {
             @Override
             public void doSelect() {
                 userMapper.select(user);
             }
         });
+        return query;
     }
 
     @Override

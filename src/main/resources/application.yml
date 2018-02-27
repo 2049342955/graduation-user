@@ -13,7 +13,7 @@ server:
 
 spring:
   application:
-      name: graduation
+      name: graduation-user
   #REDIS
   redis:
     database: 0
@@ -64,7 +64,8 @@ jms:
 
 mybatis:
   enabled: true
-  typeAliasesPackage: "com.demo.graduationuser.*.entity"
+#  typeAliasesPackage: "com.demo.graduationuser.*.entity"
+  typeAliasesPackage: "**.*.domain"
   mapperLocations: "mapper/*Mapper.xml"
   enabledCache: true
   order: "BEFORE"
@@ -104,5 +105,5 @@ flyway.baselineOnMigrate: true
 #jdbc.testConnection: true
 
 # 通用Mapper配置
-#mapper.plugin: tk.mybatis.mapper.generator.MapperPlugin
-#mapper.Mapper: tk.mybatis.mapper.common.Mapper
+mapper.plugin: tk.mybatis.mapper.generator.MapperPlugin
+mapper.Mapper: tk.mybatis.mapper.common.Mapper

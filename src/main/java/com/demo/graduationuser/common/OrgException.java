@@ -4,7 +4,7 @@
 
 package com.demo.graduationuser.common;
 
-import com.pudding.core.exception.MultiLangException;
+import com.demo.core.exception.MultiLangException;
 
 /**
  * @author luye
