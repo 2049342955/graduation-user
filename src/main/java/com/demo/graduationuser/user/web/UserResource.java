@@ -1,13 +1,11 @@
 package com.demo.graduationuser.user.web;
 
-
-//import com.demo.graduationuser.user.common.UserRepository;
-
 import com.demo.core.web.BaseController;
 import com.demo.core.web.ResponseEntity;
 import com.demo.domain.usr.User;
 import com.demo.graduationuser.user.service.IUserService;
 //import com.pudding.core.web.BaseController;
+import com.demo.utils.BooleanObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,35 +25,39 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController extends BaseController {
+public class UserResource extends BaseController {
 	@Autowired
     private IUserService userService;
 
 	@GetMapping("/get")
     public ResponseEntity<User> get(String id){
-        //return success(userService.get(id));
         return success(userService.get(id));
     }
 
+    @GetMapping("/selectOne")
+    public ResponseEntity<User>  selectOne(User user){
+	    return success(userService.selectOne(user));
+    }
+
     @PostMapping("/save")
-    public User save(User user){
-	    return userService.save(user);
+    public ResponseEntity<User> save(@RequestBody User user){
+	    return success(userService.save(user));
     }
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<User> list(User user){
-	    return userService.list(user);
+    public ResponseEntity<List<User>> list(User user){
+	    return success(userService.list(user));
     }
 
     @RequestMapping(value = "/query",method = RequestMethod.GET)
-    public PageInfo<User> query(User user){
-	    return userService.query(user);
+    public ResponseEntity<PageInfo<User>> query(User user){
+	    return success(userService.query(user));
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
-    public Integer delete(String id){
+    public ResponseEntity<BooleanObject> delete(String id){
 	    User user = new User();
 	    user.setId(id);
-	    return userService.delete(user);
+        return success(new BooleanObject(userService.delete(user) > 0));
     }
 }

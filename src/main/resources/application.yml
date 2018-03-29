@@ -12,11 +12,9 @@ server:
   #servlet-path: "*.html"
 
 spring:
-  application:
-      name: graduation-user
   #REDIS
   redis:
-    database: 0
+    database: 15
     host: localhost
     port: 6379
   jackson:
