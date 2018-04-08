@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.graduationuser.user.mapper.CorporationMapper" >
+  <resultMap id="BaseResultMap" type="com.demo.domain.usr.Corporation" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="createdBy" property="createdby" jdbcType="VARCHAR" />
+    <result column="aim" property="aim" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="createdDate" property="createddate" jdbcType="DOUBLE" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="versions" property="versions" jdbcType="INTEGER" />
+  </resultMap>
+
+  <!--<resultMap id="uc" type="java.util.Map">-->
+    <!--<result column="id" property="id" jdbcType="VARCHAR" />-->
+    <!--<result column="id" property="id" jdbcType="VARCHAR" />-->
+    <!--<result column="id" property="id" jdbcType="VARCHAR" />-->
+    <!--<result column="id" property="id" jdbcType="VARCHAR" />-->
+  <!--</resultMap>-->
+
+  <insert id="holdPost">
+    <selectKey keyProperty="id" resultType="String" order="BEFORE">
+      select  replace(uuid(),'-','')   from dual
+    </selectKey>
+    INSERT into user_corporations(id,user_id,corporation_id,status,description) VALUES (
+      #{id},#{uid},#{cid},#{status},#{description})
+  </insert>
+
+  <select id="myCorporation" resultType="map">
+    select c.id,c.name,c.createdBy,c.aim,c.createdDate,c.description,r.role_name
+    FROM
+    corporation c,user u,user_roles ur,role r
+    where 1=1
+    <if test="user!=null and user.id!=null and user.id!=''">
+      and c.id = ur.cid and ur.user_id = u.id and r.id = ur.role_id and u.id = #{user.id} and ur.status ='Y';
+    </if>
+  </select>
+
+  <select id="searchCorporation" resultMap="BaseResultMap">
+    select * from corporation c where c.name like concat('%',#{name},'%')
+  </select>
+</mapper>

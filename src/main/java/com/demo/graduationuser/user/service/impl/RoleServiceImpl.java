@@ -2,6 +2,7 @@ package com.demo.graduationuser.user.service.impl;
 
 import com.demo.common.CacheConstant;
 import com.demo.domain.usr.Role;
+import com.demo.domain.usr.User;
 import com.demo.graduationuser.common.BaseDomain;
 import com.demo.graduationuser.user.mapper.RoleMapper;
 import com.demo.graduationuser.user.mapper.UserMapper;
@@ -71,5 +72,10 @@ public class RoleServiceImpl implements IRoleService{
     @Override
     public int delete(Role user) {
         return roleMapper.delete(user);
+    }
+
+    @Override
+    public List<Role> getRoles(User user) {
+        return roleMapper.getRoles(user);
     }
 }

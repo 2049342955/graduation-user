@@ -3,7 +3,6 @@ package com.demo.graduationuser.user.web;
 import com.demo.core.web.BaseController;
 import com.demo.core.web.ResponseEntity;
 import com.demo.domain.usr.Major;
-import com.demo.domain.usr.User;
 import com.demo.graduationuser.user.service.IMajorService;
 import com.demo.utils.BooleanObject;
 import com.github.pagehelper.PageInfo;
@@ -32,7 +31,7 @@ public class MajorResource extends BaseController {
     private IMajorService iMajorService;
 
     @GetMapping("/get")
-    public ResponseEntity<User> get(String id){
+    public ResponseEntity<Major> get(String id){
         //return success(userService.get(id));
         return success(iMajorService.get(id));
     }
@@ -53,7 +52,7 @@ public class MajorResource extends BaseController {
     }
 
     @RequestMapping(value = "/query",method = RequestMethod.GET)
-    public ResponseEntity<PageInfo<User>> query(Major major){
+    public ResponseEntity<PageInfo<Major>> query(Major major){
         return success(iMajorService.query(major));
     }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/userRole")
@@ -49,4 +50,5 @@ public class UserRoleController extends BaseController{
         userRoles.setId(id);
         return success(new BooleanObject(iUserRoleService.delete(userRoles) > 0));
     }
+
 }

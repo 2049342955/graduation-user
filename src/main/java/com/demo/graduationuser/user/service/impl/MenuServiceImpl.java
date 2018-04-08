@@ -2,6 +2,7 @@ package com.demo.graduationuser.user.service.impl;
 
 import com.demo.common.CacheConstant;
 import com.demo.domain.usr.Menu;
+import com.demo.domain.usr.User;
 import com.demo.graduationuser.common.BaseDomain;
 import com.demo.graduationuser.user.mapper.MenuMapper;
 import com.demo.graduationuser.user.mapper.UserMapper;
@@ -71,5 +72,10 @@ public class MenuServiceImpl implements IMenuService{
     @Override
     public int delete(Menu menu) {
         return menuMapper.delete(menu);
+    }
+
+    @Override
+    public List<Menu> getRoleMenus(User user) {
+        return menuMapper.getRoleMenus(user);
     }
 }

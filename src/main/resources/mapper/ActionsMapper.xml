@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.graduationuser.user.mapper.ActionsMapper" >
+  <resultMap id="BaseResultMap" type="com.demo.domain.usr.Actions" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="action_name" property="actionName" jdbcType="VARCHAR" />
+    <result column="holder" property="holder" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+      <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="approveList" resultMap="BaseResultMap">
+    select a.id,a.action_name,a.holder,a.date,a.summary,a.content,a.startDate,a.endDate
+    from actions a,action_approve aa
+    where 1=1
+    and a.id = aa.aid and aa.status = 1 ORDER BY aa.approve_date desc
+  </select>
+
+  <select id="popularAction" resultMap="BaseResultMap">
+    SELECT
+	  a.id,a.action_name,a.holder,a.date,a.summary,a.content,a.startDate,a.endDate
+    FROM
+	   actions a,
+	   popular_actions pa
+    WHERE
+	   a.id = pa.aid
+    ORDER BY
+	    pa.start_date DESC limit 0,2
+  </select>
+
+  <select id="rejectAction" resultType="map">
+    select a.id,a.action_name,a.holder,a.address,a.summary,a.content,a.startDate,a.endDate,aa.description
+    from
+    actions a,corporation c ,action_approve aa
+    where 1=1
+    <if test="corporation!=null and corporation.id !=null and corporation.id!=''">
+      and a.holder=c.name and a.id = aa.aid and aa.`status`='2' and c.id=#{corporation.id}
+    </if>
+
+  </select>
+
+  <select id="getByCorporation" resultMap="BaseResultMap">
+    SELECT * from actions a ,action_approve aa
+    where  1=1
+    <if test="corporation!=null and corporation.id !=null and corporation.id!=''">
+    and a.id = aa.aid and aa.`status`='1' and a.holder in(
+    select c.name from corporation c where c.id =#{corporation.id})
+    </if>
+  </select>
+
+  <select id="getAllApprove" resultMap="BaseResultMap">
+    select a.id,a.action_name,a.holder,a.date,a.summary,a.content,a.address,a.startDate,a.endDate
+    from actions a, action_approve aa where a.id = aa.aid and aa.status="0"
+  </select>
+
+  <select id="getByUserId" resultMap="BaseResultMap">
+    select * from actions a
+    ORDER by date desc limit 0,1
+  </select>
+
+  <select id="searchAction" resultMap="BaseResultMap">
+    select * from actions a where a.action_name like concat('%',#{name},'%')
+  </select>
+
+  <select id="getMonths" resultType="java.lang.Integer">
+    select count(*) from actions a where a.holder = #{holder} and 1=1
+    <if test="begin!=null">
+      <![CDATA[   and DATE_FORMAT(a.startDate, '%Y-%m-%d')>=  DATE_FORMAT(#{begin}, '%Y-%m-%d')   ]]>
+    </if>
+    <if test="end!=null">
+      <![CDATA[  and DATE_FORMAT(a.startDate, '%Y-%m-%d') <= DATE_FORMAT(#{end}, '%Y-%m-%d')    ]]>
+    </if>
+  </select>
+</mapper>

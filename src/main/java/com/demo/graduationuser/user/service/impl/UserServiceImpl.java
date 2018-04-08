@@ -1,6 +1,7 @@
 package com.demo.graduationuser.user.service.impl;
 
 import com.demo.common.CacheConstant;
+import com.demo.domain.usr.Corporation;
 import com.demo.domain.usr.User;
 import com.demo.graduationuser.common.BaseDomain;
 //import com.demo.graduationuser.user.entity.User;
@@ -10,6 +11,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.github.pagehelper.ISelect;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -81,6 +84,9 @@ public class UserServiceImpl implements IUserService{
     @Override
     public User save(User user) {
         if (StringUtils.isEmpty(user.getId())) {
+            if(StringUtil.isEmpty(user.getStatus())){
+                user.setStatus("0");
+            }
             userMapper.insert(user);
         } else {
             userMapper.updateByPrimaryKeySelective(user);
@@ -91,5 +97,20 @@ public class UserServiceImpl implements IUserService{
     @Override
     public int delete(User user) {
         return userMapper.delete(user);
+    }
+
+    @Override
+    public List<Map> getByCorporation(Corporation corporation) {
+        return userMapper.getByCorporation(corporation);
+    }
+
+    @Override
+    public List<Map> getUnApprove() {
+        return userMapper.getUnApprove();
+    }
+
+    @Override
+    public List<User> searchUser(String name) {
+        return userMapper.searchUser(name);
     }
 }

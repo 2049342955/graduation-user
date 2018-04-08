@@ -62,6 +62,9 @@ public class UserRoleServiceImpl implements IUserRoleService{
     @Override
     public UserRoles save(UserRoles userRoles) {
         if (StringUtils.isEmpty(userRoles.getId())) {
+            if(userRoles.getStatus()==null){
+                userRoles.setStatus("Y");
+            }
             userRolesMapper.insert(userRoles);
         } else {
             userRolesMapper.updateByPrimaryKeySelective(userRoles);

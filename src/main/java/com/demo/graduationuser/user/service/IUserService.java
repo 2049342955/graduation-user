@@ -1,11 +1,13 @@
 package com.demo.graduationuser.user.service;
 
+import com.demo.domain.usr.Corporation;
 import com.demo.domain.usr.User;
 //import com.demo.graduationuser.user.entity.User;
 import com.baomidou.mybatisplus.service.IService;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,4 +28,7 @@ public interface IUserService {
     PageInfo<User> query(User user);
     User save(User user);
     int delete(User user);
+    List<Map> getByCorporation(Corporation corporation);
+    List<Map> getUnApprove();
+    List<User> searchUser(String name);
 }

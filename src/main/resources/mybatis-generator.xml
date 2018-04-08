@@ -40,12 +40,12 @@
         <sqlMapGenerator targetPackage="sqlMapper" targetProject="src/main/resources/mapper"/>
         <javaClientGenerator targetPackage="com.demo.graduationuser.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
-        <table tableName="user">
-            <!--mysql 配置-->
-            <generatedKey column="id" sqlStatement="Mysql" />
-            <!--oracle 配置-->
-            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
-        </table>
+        <!--<table tableName="user">-->
+            <!--&lt;!&ndash;mysql 配置&ndash;&gt;-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" />-->
+            <!--&lt;!&ndash;oracle 配置&ndash;&gt;-->
+            <!--&lt;!&ndash;<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>&ndash;&gt;-->
+        <!--</table>-->
 
         <!--<table tableName="user">-->
             <!--&lt;!&ndash;mysql 配置&ndash;&gt;-->
@@ -81,7 +81,22 @@
         <!--<table tableName="user_roles">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" />-->
         <!--</table>-->
-        <table tableName="role_menus">
+        <!--<table tableName="role_menus">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" />-->
+        <!--</table>-->
+        <!--<table tableName="actions">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" />-->
+        <!--</table>-->
+        <!--<table tableName="action_pictures">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" />-->
+        <!--</table>-->
+        <!--<table tableName="chairman_approve">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" />-->
+        <!--</table>-->
+        <!--<table tableName="popular_actions">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" />-->
+        <!--</table>-->
+        <table tableName="search">
             <generatedKey column="id" sqlStatement="Mysql" />
         </table>
     </context>

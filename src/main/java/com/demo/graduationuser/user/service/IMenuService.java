@@ -1,6 +1,7 @@
 package com.demo.graduationuser.user.service;
 
 import com.demo.domain.usr.Menu;
+import com.demo.domain.usr.User;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface IMenuService {
     PageInfo<Menu> query(Menu menu);
     Menu save(Menu menu);
     int delete(Menu menu);
+    List<Menu> getRoleMenus(User user);
 }

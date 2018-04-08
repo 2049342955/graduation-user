@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.demo.graduationuser.mapper.UserMapper" >
+<mapper namespace="com.demo.graduationuser.user.mapper.UserMapper" >
 	<resultMap id="BaseResultMap" type="com.demo.domain.usr.User" >
 		<!--
           WARNING - @mbg.generated
@@ -9,11 +9,30 @@
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
-		<result column="sex" property="sex" jdbcType="CHAR" />
-		<result column="age" property="age" jdbcType="INTEGER" />
+		<result column="college" property="college" jdbcType="VARCHAR" />
+		<result column="major" property="major" jdbcType="VARCHAR" />
 		<result column="email" property="email" jdbcType="VARCHAR" />
 		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="status" property="status" jdbcType="CHAR" />
 		<result column="head_url" property="headUrl" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
 	</resultMap>
+	<select id="getByCorporation" resultType="map">
+		SELECT u.id,u.name,u.nick_name,u.college,u.major,u.phone,u.status,u.address,u.email,r.role_name,r.id as roleId
+		from user u,user_roles ur,role r
+		where 1=1
+		<if test="corporation!=null and corporation.id!=null and corporation.id!=''">
+			and ur.user_id=u.id and r.id = ur.role_id and ur.cid = #{corporation.id} and ur.status = "Y"
+		</if>
+	</select>
+
+	<select id="getUnApprove" resultType="map">
+		select u.id,u.name,u.nick_name,u.college,u.major,u.address,u.email,u.phone,c.name as corporationName,ca.id as cmApproveId
+		from user u,corporation c,chairman_approve ca
+		where u.id = ca.uid and c.id = ca.cid and ca.`status`=0
+	</select>
+
+	<select id="searchUser" resultMap="BaseResultMap">
+		select * from user u where u.name like concat('%',#{name},'%')
+	</select>
 </mapper>

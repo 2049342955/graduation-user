@@ -3,17 +3,15 @@ package com.demo.graduationuser.user.web;
 import com.demo.core.web.BaseController;
 import com.demo.core.web.ResponseEntity;
 import com.demo.domain.usr.College;
-import com.demo.domain.usr.User;
 import com.demo.graduationuser.user.service.ICollegeService;
-import com.demo.graduationuser.user.service.IUserService;
-//import com.pudding.core.web.BaseController;
 import com.demo.utils.BooleanObject;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+//import com.pudding.core.web.BaseController;
 
 //import com.pudding.core.web.ResponseEntity;
 
@@ -53,7 +51,7 @@ public class CollegeResource extends BaseController {
     }
 
     @RequestMapping(value = "/query",method = RequestMethod.GET)
-    public ResponseEntity<PageInfo<User>> query(College college){
+    public ResponseEntity<PageInfo<College>> query(College college){
         return success(iCollegeService.query(college));
     }
 

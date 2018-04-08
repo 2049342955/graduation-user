@@ -3,6 +3,7 @@ package com.demo.graduationuser.user.web;
 import com.demo.core.web.BaseController;
 import com.demo.core.web.ResponseEntity;
 import com.demo.domain.usr.Role;
+import com.demo.domain.usr.User;
 import com.demo.graduationuser.user.service.IRoleService;
 import com.demo.utils.BooleanObject;
 import com.github.pagehelper.PageInfo;
@@ -48,5 +49,10 @@ public class RoleResource extends BaseController{
         Role role = new Role();
         role.setId(id);
         return success(new BooleanObject(iRoleService.delete(role) > 0));
+    }
+
+    @GetMapping("/getRoles")
+    public ResponseEntity<List<Role>> getRoles(User user){
+        return success(iRoleService.getRoles(user));
     }
 }

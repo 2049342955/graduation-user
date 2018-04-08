@@ -3,6 +3,7 @@ package com.demo.graduationuser.user.web;
 import com.demo.core.web.BaseController;
 import com.demo.core.web.ResponseEntity;
 import com.demo.domain.usr.Menu;
+import com.demo.domain.usr.User;
 import com.demo.graduationuser.user.service.IMenuService;
 import com.demo.utils.BooleanObject;
 import com.github.pagehelper.PageInfo;
@@ -47,5 +48,10 @@ public class MenuResource extends BaseController{
         Menu menu = new Menu();
         menu.setId(id);
         return success(new BooleanObject(iMenuService.delete(menu) > 0));
+    }
+
+    @GetMapping("/roleMenus")
+    public ResponseEntity<List<Menu>> getRoleMenu(User user){
+        return success(iMenuService.getRoleMenus(user));
     }
 }

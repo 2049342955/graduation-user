@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.demo.graduationuser.mapper.RoleMapper" >
+<mapper namespace="com.demo.graduationuser.user.mapper.RoleMapper" >
   <resultMap id="BaseResultMap" type="com.demo.domain.usr.Role" >
     <!--
       WARNING - @mbg.generated
@@ -12,4 +12,20 @@
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
   </resultMap>
+
+  <select id="getRoles" resultMap="BaseResultMap">
+    SELECT
+      *
+    FROM
+      role r,
+      user_roles ur,
+      USER u
+    WHERE 1=1
+      <if test="user !=null and user.id !=''">
+        and r.id = ur.role_id
+        AND ur.user_id = u.id
+        and u.id = #{user.id}
+      </if>
+
+  </select>
 </mapper>
